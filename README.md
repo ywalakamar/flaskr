@@ -1,2 +1,2 @@
 # flaskr
-An python flask app
+A python flask app
