@@ -44,10 +44,9 @@ def login():
         db = get_db()
         error = None
         user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (
-                username,)
+            'SELECT * FROM user WHERE username = ?', (username,)
         ).fetchone()
-
+        print(user)
         if user is None:
             error = 'Incorrect username.'
         elif not check_password_hash(user['password'], password):
@@ -66,13 +65,13 @@ def login():
 # logged in user
 @bp.before_app_request
 def load_logged_in_user():
-    user_id = session.get("user_id")
+    user_id = session.get('user_id')
 
     if user_id is None:
         g.user = None
     else:
         g.user = get_db().execute(
-            "SELECT * FROM user WHERE id = ?", (user_id)
+            'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
 
 # logout
